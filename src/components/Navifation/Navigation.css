@@ -1,0 +1,41 @@
+.mainNavigation{
+    width: 100%;
+    height: 60px;
+    background-color: #ede9fe;
+}
+
+.mainNavigation nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.mainNavigation ul{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.mainNavigation li{
+    margin: 0 1rem;
+}
+
+.mainNavigation a{
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.mainNavigation a:hover{
+    color: #6d28d9;
+    background-color: #fff;
+}
+
+.activeLink{
+    color: #6d28d9;
+    background-color: #fff;
+}
