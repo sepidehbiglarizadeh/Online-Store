@@ -1,5 +1,4 @@
 .productList {
-  background-color: #fff;
   border-radius: 5px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -14,7 +13,7 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    background-color: rgb(128,175,245);
+    background-color: #fafafa;
 }
 
 .productImage img{
@@ -31,4 +30,20 @@
     padding: 1rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.btn{
+    border: none;
+    outline: none;
+    padding: 1rem 1.5rem;
+    background-color: #ede9fe;
+    color: #6d28d9;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.primary{
+    background-color: #6d28d9;
+    color: #fff;
 }
