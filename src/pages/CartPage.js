@@ -1,15 +1,24 @@
 import Layout from "../Layout/Layout";
-import { useCart } from "../Providers/CartProvider";
+import { useCart, useCartActions } from "../Providers/CartProvider";
 import "./CartPage.css";
 
 const CartPage = () => {
   const { cart } = useCart();
+  const dispatch = useCartActions();
+
+  const incrementHandler = (cartItem) => {
+    dispatch({ type: "ADD_TO_CART", payload: cartItem });
+  };
+
+  const decrementHandler = (cartItem) => {
+    dispatch({ type: "REMOVE_PRODUCT", payload: cartItem });
+  };
 
   if (!cart.length) {
     return (
       <Layout>
         <main>
-          <h2>Cart is Empty</h2>
+          <h2>Cart is Empty!!</h2>
         </main>
       </Layout>
     );
@@ -22,16 +31,18 @@ const CartPage = () => {
           <section className="cartItemList">
             {cart.map((item) => {
               return (
-                <div className="cartItem">
+                <div className="cartItem" key={item.id}>
                   <div className="itemImage">
                     <img src={item.image} alt={item.name} />
                   </div>
                   <div>{item.name}</div>
                   <div>${item.price * item.quantity}</div>
                   <div>
-                    <button>Remove</button>
+                    <button onClick={() => decrementHandler(item)}>
+                      Remove
+                    </button>
                     <button>{item.quantity}</button>
-                    <button>Add</button>
+                    <button onClick={() => incrementHandler(item)}>Add</button>
                   </div>
                 </div>
               );
