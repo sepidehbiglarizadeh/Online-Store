@@ -1,0 +1,52 @@
+.app{
+    padding-top: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+label{
+    display: flex;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+
+input + label {
+    font-weight: bold;
+    display: inline-flex;
+    margin-right: 20px;
+    margin-left: 5px;
+}
+
+.input ,select {
+    width: 400px;
+    padding: 0.6rem 1.2rem;
+    display: block;
+    background-color: #fff;
+    color: #444;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+.input:focus{
+    border: px solid #6d28d9;
+}
+
+.formControl{
+    margin-bottom: 2rem;
+}
+
+button{
+    padding: 0.5rem 1.5rem;
+}
+
+.error{
+    color:red;
+    margin-top: 0.2rem;
+}
+
+.formContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

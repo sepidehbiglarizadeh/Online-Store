@@ -26,7 +26,7 @@
 }
 
 .cartSummery {
-    padding: 1rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -34,13 +34,48 @@
   border: 1px solid #ccc;
   width: 30%;
   margin-left: 3rem;
+  height: 250px;
 }
 
-.cartCenter{
-    margin-top: 50px;
-    display: flex;
-    width: 90vw;
-    max-width: 1170px;
-    justify-content: center;
+.cartCenter {
+  margin-top: 50px;
+  display: flex;
+  width: 90vw;
+  max-width: 1170px;
+  justify-content: center;
 }
 
+.summeryItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.summeryItem.net {
+  border-top: 1px solid #ccc;
+  padding-top: 3px;
+}
+
+.btnGroup button {
+  outline: none;
+  color: #6d28d9;
+  border: 1px solid #6d28d9;
+  padding: 5px 10px;
+  background-color: #fff;
+}
+
+.btnGroup button:first-child {
+  border-radius: 5px 0 0 5px;
+  cursor: pointer;
+}
+
+.btnGroup button:last-child {
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+
+.btnGroup button:nth-child(2) {
+  border-left: 0;
+  border-right: 0;
+}
