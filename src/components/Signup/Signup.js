@@ -2,7 +2,7 @@ import Input from "../../common/Input";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./Signup.css";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import signupUser from "../../services/signupService";
 import { useState } from "react";
 
@@ -34,7 +34,7 @@ const validationSchema = Yup.object({
   ),
 });
 
-const SignUpForm = () => {
+const SignUpForm = ({ history }) => {
   const [error, setError] = useState(null);
 
   const onSubmit = async (values) => {
@@ -48,6 +48,7 @@ const SignUpForm = () => {
     try {
       const { data } = await signupUser(userData);
       console.log(data);
+      history.push("/");
     } catch (err) {
       if (err.response && err.response.data.message)
         setError(err.response.data.message);
@@ -102,4 +103,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default withRouter(SignUpForm);
