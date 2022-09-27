@@ -9,6 +9,7 @@ import CheckOutPage from "./pages/CheckOutPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import AuthProvider from "./Providers/AuthProvider";
+import ProfilePage from "./pages/ProfilePage";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <CartProvider>
           <ToastContainer />
           <Switch>
+            <Route path="/profile" component={ProfilePage} />
             <Route path="/checkOut" component={CheckOutPage} />
             <Route path="/cart" component={CartPage} />
             <Route path="/login" component={LoginPage} />

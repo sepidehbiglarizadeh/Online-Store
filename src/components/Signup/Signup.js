@@ -50,7 +50,6 @@ const SignUpForm = ({ history }) => {
     try {
       const { data } = await signupUser(userData);
       setAuth(data);
-      localStorage.setItem("authState",JSON.stringify(data))
       history.push("/");
     } catch (err) {
       if (err.response && err.response.data.message)

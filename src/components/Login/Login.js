@@ -28,7 +28,6 @@ const LoginForm = ({ history }) => {
       const { data } = await loginUser(values);
       setError(null);
       setAuth(data);
-      localStorage.setItem("authState", JSON.stringify(data));
       history.push("/");
     } catch (err) {
       if (err.response && err.response.data.message)
