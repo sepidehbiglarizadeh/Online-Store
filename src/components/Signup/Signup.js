@@ -1,8 +1,10 @@
 import Input from "../../common/Input";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import "./Signup.css"
+import "./Signup.css";
 import { Link } from "react-router-dom";
+import signupUser from "../../services/signupService";
+import { useState } from "react";
 
 const initialValues = {
   name: "",
@@ -10,14 +12,6 @@ const initialValues = {
   phoneNumber: "",
   password: "",
   passwordConfirm: "",
-};
-
-const onSubmit = (values) => {
-  console.log(values);
-  // axios
-  //   .post("http://localhost:3001/users",values)
-  //   .then((res) => console.log(res.data))
-  //   .catch((err) => console.log(err));
 };
 
 const validationSchema = Yup.object({
@@ -33,10 +27,7 @@ const validationSchema = Yup.object({
     .nullable(),
   password: Yup.string()
     .required("Password is required")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
-    ),
+    .min(8, "Password is too short - should be 8 chars minimum."),
   passwordConfirm: Yup.string().oneOf(
     [Yup.ref("password"), null],
     "Passwords must match"
@@ -44,6 +35,25 @@ const validationSchema = Yup.object({
 });
 
 const SignUpForm = () => {
+  const [error, setError] = useState(null);
+
+  const onSubmit = async (values) => {
+    const { name, email, phoneNumber, password } = values;
+    const userData = {
+      name,
+      email,
+      phoneNumber,
+      password,
+    };
+    try {
+      const { data } = await signupUser(userData);
+      console.log(data);
+    } catch (err) {
+      if (err.response && err.response.data.message)
+        setError(err.response.data.message);
+    }
+  };
+
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit,
@@ -75,11 +85,17 @@ const SignUpForm = () => {
           label="Password Confirmation"
           type="password"
         />
-        <button style={{width:"100%"}} type="submit" disabled={!formik.isValid} className="btn primary">
+        <button
+          style={{ width: "100%" }}
+          type="submit"
+          disabled={!formik.isValid}
+          className="btn primary"
+        >
           Sign up
         </button>
-        <Link to='/login'>
-            <p style={{marginTop:"15px"}}>Already login?</p>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <Link to="/login">
+          <p style={{ marginTop: "15px" }}>Already login?</p>
         </Link>
       </form>
     </div>

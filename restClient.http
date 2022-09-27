@@ -1,6 +1,6 @@
 ###
 
-GET https://nodejs-post-app.herokuapp.com/api/product HTTP/1.1
+GET http://localhost:5000/api/product HTTP/1.1
 
 ###
 

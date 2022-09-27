@@ -3,18 +3,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./Login.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import loginUser from "../../services/loginService";
 
 const initialValues = {
   email: "",
   password: "",
-};
-
-const onSubmit = (values) => {
-  console.log(values);
-  // axios
-  //   .post("http://localhost:3001/users",values)
-  //   .then((res) => console.log(res.data))
-  //   .catch((err) => console.log(err));
 };
 
 const validationSchema = Yup.object({
@@ -25,6 +19,20 @@ const validationSchema = Yup.object({
 });
 
 const LoginForm = () => {
+  const [error, setError] = useState(null);
+
+  const onSubmit = async (values) => {
+    try {
+      const { data } = await loginUser(values);
+      setError(null);
+      console.log(data);
+    } catch (err) {
+      if (err.response && err.response.data.message)
+        console.log(err.response.data.message);
+      setError(err.response.data.message);
+    }
+  };
+
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit,
@@ -51,8 +59,9 @@ const LoginForm = () => {
         >
           Login
         </button>
-        <Link to='/signup'>
-            <p style={{marginTop:"15px"}}>Not sign-up yet?</p>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <Link to="/signup">
+          <p style={{ marginTop: "15px" }}>Not sign-up yet?</p>
         </Link>
       </form>
     </div>
