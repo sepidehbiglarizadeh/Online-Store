@@ -2,9 +2,10 @@ import Input from "../../common/Input";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./Login.css";
-import { Link,withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { useState } from "react";
 import loginUser from "../../services/loginService";
+import { useAuthActions } from "../../Providers/AuthProvider";
 
 const initialValues = {
   email: "",
@@ -18,14 +19,16 @@ const validationSchema = Yup.object({
   password: Yup.string().required("Password is required"),
 });
 
-const LoginForm = ({history}) => {
+const LoginForm = ({ history }) => {
   const [error, setError] = useState(null);
+  const setAuth = useAuthActions();
 
   const onSubmit = async (values) => {
     try {
       const { data } = await loginUser(values);
       setError(null);
-      console.log(data);
+      setAuth(data);
+      localStorage.setItem("authState", JSON.stringify(data));
       history.push("/");
     } catch (err) {
       if (err.response && err.response.data.message)

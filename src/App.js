@@ -8,20 +8,23 @@ import "react-toastify/dist/ReactToastify.css";
 import CheckOutPage from "./pages/CheckOutPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import AuthProvider from "./Providers/AuthProvider";
 
 const App = () => {
   return (
     <Router>
-      <CartProvider>
-        <ToastContainer />
-        <Switch>
-          <Route path="/checkOut" component={CheckOutPage} />
-          <Route path="/cart" component={CartPage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/signup" component={SignUpPage} />
-          <Route path="/" component={HomePage} />
-        </Switch>
-      </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <ToastContainer />
+          <Switch>
+            <Route path="/checkOut" component={CheckOutPage} />
+            <Route path="/cart" component={CartPage} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/signup" component={SignUpPage} />
+            <Route path="/" component={HomePage} />
+          </Switch>
+        </CartProvider>
+      </AuthProvider>
     </Router>
   );
 };
