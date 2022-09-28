@@ -6,6 +6,7 @@ import { Link, withRouter } from "react-router-dom";
 import signupUser from "../../services/signupService";
 import { useState } from "react";
 import { useAuthActions } from "../../Providers/AuthProvider";
+import { useQuery } from "../../hooks/useQuery";
 
 const initialValues = {
   name: "",
@@ -38,6 +39,8 @@ const validationSchema = Yup.object({
 const SignUpForm = ({ history }) => {
   const [error, setError] = useState(null);
   const setAuth= useAuthActions();
+  const query= useQuery();
+  const redirect= query.get("redirect") || "/";
 
   const onSubmit = async (values) => {
     const { name, email, phoneNumber, password } = values;
@@ -50,7 +53,7 @@ const SignUpForm = ({ history }) => {
     try {
       const { data } = await signupUser(userData);
       setAuth(data);
-      history.push("/");
+      history.push(redirect);
     } catch (err) {
       if (err.response && err.response.data.message)
         setError(err.response.data.message);
@@ -97,7 +100,7 @@ const SignUpForm = ({ history }) => {
           Sign up
         </button>
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <Link to="/login">
+        <Link to={`/login?redirect=${redirect}`}>
           <p style={{ marginTop: "15px" }}>Already login?</p>
         </Link>
       </form>
