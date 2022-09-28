@@ -3,9 +3,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./Login.css";
 import { Link, withRouter } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import loginUser from "../../services/loginService";
-import { useAuthActions } from "../../Providers/AuthProvider";
+import { useAuthActions,useAuth } from "../../Providers/AuthProvider";
 import { useQuery } from "../../hooks/useQuery";
 
 const initialValues = {
@@ -23,8 +23,13 @@ const validationSchema = Yup.object({
 const LoginForm = ({ history }) => {
   const [error, setError] = useState(null);
   const setAuth = useAuthActions();
+  const auth= useAuth();
   const query= useQuery();
   const redirect= query.get("redirect") || "/";
+
+  useEffect(() => {
+    if (auth) history.push(redirect);
+  }, [auth, redirect]);
 
   const onSubmit = async (values) => {
     try {

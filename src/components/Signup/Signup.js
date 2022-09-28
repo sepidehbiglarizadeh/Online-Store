@@ -4,8 +4,8 @@ import * as Yup from "yup";
 import "./Signup.css";
 import { Link, withRouter } from "react-router-dom";
 import signupUser from "../../services/signupService";
-import { useState } from "react";
-import { useAuthActions } from "../../Providers/AuthProvider";
+import { useEffect, useState } from "react";
+import { useAuthActions, useAuth } from "../../Providers/AuthProvider";
 import { useQuery } from "../../hooks/useQuery";
 
 const initialValues = {
@@ -38,9 +38,14 @@ const validationSchema = Yup.object({
 
 const SignUpForm = ({ history }) => {
   const [error, setError] = useState(null);
-  const setAuth= useAuthActions();
-  const query= useQuery();
-  const redirect= query.get("redirect") || "/";
+  const setAuth = useAuthActions();
+  const auth = useAuth();
+  const query = useQuery();
+  const redirect = query.get("redirect") || "/";
+
+  useEffect(() => {
+    if (auth) history.push(redirect);
+  }, [auth, redirect]);
 
   const onSubmit = async (values) => {
     const { name, email, phoneNumber, password } = values;
